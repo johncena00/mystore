@@ -15,6 +15,7 @@ psycopg2 = "<2.8"
 boto3 = "*"
 django-storages = "*"
 django-fontawesome = "*"
+django-fsm = "*"
 
 [requires]
 python_version = "3.7"
