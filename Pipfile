@@ -9,6 +9,9 @@ verify_ssl = true
 django = "*"
 django-bootstrap4 = "*"
 pillow = "*"
+gunicorn = "*"
+django-heroku = "*"
+psycopg2 = "<2.8"
 
 [requires]
 python_version = "3.7"
