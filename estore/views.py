@@ -62,6 +62,11 @@ class OrderDetailMixin(object):
         return get_object_or_404(self.request.user.order_set, token=self.kwargs.get('token'))
 
 
+class OrderList(LoginRequiredMixin, generic.ListView):
+    def get_queryset(self):
+        return self.request.user.order_set.all()
+
+
 class OrderDetail(OrderDetailMixin, generic.DetailView):
     pass
 
@@ -75,7 +80,9 @@ class OrderPayWithCreditCard(OrderDetailMixin, generic.DetailView):
         self.object.make_payment()
         self.object.save()
 
-        return redirect('order_detail', token=self.object.token)
+        messages.success(self.request, '成功完成付款')
+
+        return redirect('order_list')
 
 
 class OrderCreateCartCheckout(LoginRequiredMixin, generic.CreateView):
