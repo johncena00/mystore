@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "d593bb5ba4b9055c89a026bb1fb16fb6423b3174f8f47540a710a643c93586b6"
+            "sha256": "45f6afbbb5b1dcc4672dcc15ed2a74c23b40a610326beb4aab0fcdae970a99eb"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -75,6 +75,14 @@
             ],
             "index": "pypi",
             "version": "==0.3.1"
+        },
+        "django-spgateway": {
+            "hashes": [
+                "sha256:505bcad8bf01bb35b445e7d6a9bfb6cc979025cd6850967dc26d0b15d1ad2556",
+                "sha256:6aa73fefeca85a283ef909be6c2cb169809fa01b3437afa2a5e0b319b5b1f9fe"
+            ],
+            "index": "pypi",
+            "version": "==0.4.0"
         },
         "django-storages": {
             "hashes": [
@@ -174,6 +182,12 @@
             ],
             "index": "pypi",
             "version": "==2.7.7"
+        },
+        "pycrypto": {
+            "hashes": [
+                "sha256:f2ce1e989b272cfcb677616763e0a2e7ec659effa67a88aa92b3a65528f60a3c"
+            ],
+            "version": "==2.6.1"
         },
         "python-dateutil": {
             "hashes": [

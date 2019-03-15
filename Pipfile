@@ -17,6 +17,7 @@ boto3 = "*"
 django-storages = "*"
 django-fontawesome = "*"
 django-fsm = "*"
+django-spgateway = "*"
 
 [requires]
 python_version = "3.7"
