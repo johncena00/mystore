@@ -143,15 +143,13 @@ else:
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SPGATEWAY_PROFILE = {
-    'MS15857433': {
-        'MerchantID': 'MS15857433',
-        'HashKey': 's36MTGtulJcU4mY5TRt6cqODtqHJSp40',
-        'HashIV': '1tzKr8k0oyeZAGWj',
-        'ReturnURL': reverse_lazy('spgateway_NotifyView'),
-        'NotifyURL': '',
+    os.environ.get('SPGATEWAY_MERCHANT_ID', ''): {
+        'MerchantID': os.environ.get('SPGATEWAY_MERCHANT_ID', ''),
+        'HashKey': os.environ.get('SPGATEWAY_HASHKEY', ''),
+        'HashIV': os.environ.get('SPGATEWAY_HASHIV', ''),
     }
 }
-SPGATEWAY_MERCHANTID = 'MS15857433'
+SPGATEWAY_MERCHANTID = os.environ.get('SPGATEWAY_MERCHANT_ID', '')
 SPGATEWAY_ORDERMODEL = 'estore.Order'
 
 if DEBUG:
