@@ -22,6 +22,9 @@
                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Hi, {{ request.user.username }}
                     </a>
+                    {% if perms.estore.change_product %}
+                        <a class="dropdown-item" href="{% url 'dashboard_product_list' %}">主控台</a>
+                    {% endif %}
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="dropdown-item" href="{% url 'logout' %}">登出</a>
                     </div>
