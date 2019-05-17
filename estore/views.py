@@ -9,6 +9,8 @@ from django.views import generic
 from .forms import OrderInfoForm
 from .models import Cart_Items, Order, Product
 
+from django_fsm import TransitionNotAllowed
+
 # Create your views here.
 
 class CartItemDelete(generic.DeleteView):
@@ -53,6 +55,63 @@ class CartDelete(CartDetailMixin, generic.DeleteView):
     def get(self, request, *args, **kwargs):
         return redirect('cart_detail')
 
+class DashboardOrderAction(generic.UpdateView):
+    fields = []
+    accept_acctions = ['make_payment', 'ship', 'deliver', 'return_good', 'cancel_order']
+
+    def get_object(self):
+        return Order.objects.get(token=self.kwargs.get('token'))
+
+    def form_valid(self, form):
+        action = self.kwargs.get('action')
+        if action in self.accept_acctions:
+            action_func = getattr(self.object, action)
+            try:
+                action_func()
+                form.save()
+            except TransitionNotAllowed:
+                return self.form_invalid(form)
+
+            return HttpResponseRedirect(self.get_success_url())
+        else:
+            return self.form_invalid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, '無法處理訂單操作')
+        return HttpResponseRedirect(reverse('dashboard_order_detail', kwargs={'token': self.object.token}))
+
+    def get_success_url(self):
+        messages.success(self.request, '訂單狀態已改變')
+        return reverse('dashboard_order_detail', kwargs={'token': self.object.token})
+
+class DashboardOrderDetail(generic.DetailView):
+    permission_required = 'estore.change_order'
+    template_name = 'estore/dashboard_order_detail.html'
+
+    def get_object(self):
+        return Order.objects.get(token=self.kwargs.get('token'))
+
+    def get_context_data(self, **kwargs):
+        if 'render_order_paid_state' not in kwargs:
+            if self.object.is_paid:
+                kwargs['paid_state'] = '已付款'
+            else:
+                kwargs['paid_state'] = '未付款'
+
+        return super(DashboardOrderDetail, self).get_context_data(**kwargs)
+
+
+class DashboardOrderList(PermissionRequiredMixin, generic.ListView):
+    permission_required = 'estore.change_order'
+    template_name = 'estore/dashboard_order_list.html'
+
+    def get_queryset(self):
+        return Order.objects.all().order_by('-created')
+
+class OrderList(LoginRequiredMixin, generic.ListView):
+    def get_queryset(self):
+        return self.request.user.order_set.all()
+
 class OrderDetailMixin(object):
     def get_object(self):
         return get_object_or_404(self.request.user.order_set, token=self.kwargs.get('token'))
@@ -70,7 +129,9 @@ class OrderPayWithCreditCard(OrderDetailMixin, generic.DetailView):
         self.object.make_payment()
         self.object.save()
 
-        return redirect('order_detail', token=self.object.token)
+        messages.success(self.request, '成功完成付款')
+
+        return redirect('order_list')
 
 class OrderCreateCartCheckout(LoginRequiredMixin, generic.CreateView):
     model = Order
