@@ -26,7 +26,7 @@ class Cart(models.Model):
 class Cart_Items(models.Model):
     cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
-    quantity = models.IntegerField(verbose_name='數量', default=1)
+    quantity = models.PositiveIntegerField(verbose_name='數量', default=1)
 
 class OrderInfo(models.Model):
     billing_name = models.CharField(max_length=255, verbose_name='購買人姓名')
