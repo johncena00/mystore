@@ -2,7 +2,9 @@ import uuid
 from django.contrib.auth.models import User
 from django.db import models
 from django_fsm import FSMField, transition
+from django.urls import reverse
 from django.utils.translation import ugettext_lazy as _
+
 
 # Create your models here.
 class Product(models.Model):
@@ -47,6 +49,9 @@ class Order(models.Model):
 
     state_list = (_('order_placed'), _('paid'), _('shipping'), _('shipped'), _('good_returned'), _('order_cancelled'),)
 
+    def get_absolute_url(self):
+        return reverse('order_detail', kwargs={'token': self.token})
+    
     @transition(field=state, source='order_placed', target='paid')
     def make_payment(self):
         self.is_paid = True

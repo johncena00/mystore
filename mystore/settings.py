@@ -126,10 +126,15 @@ STATIC_URL = '/static/'
 
 LOGIN_REDIRECT_URL = '/'
 LOGIN_URL = '/login/'
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())
+
+if DEBUG:
+    INSTALLED_APPS += ('naomi',)
+    EMAIL_BACKEND = 'naomi.mail.backends.naomi.NaomiBackend'
+    EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'mail')
