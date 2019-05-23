@@ -136,15 +136,13 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SPGATEWAY_PROFILE = {
-    'MS16247804': {
-        'MerchantID': 'MS16247804',
-        'HashKey': 'NbHvvkO1OnG7a8zQA2pbFOtxbbTWSm39',
-        'HashIV': 'OTgMeoe1DrIpnncU',
-        'ReturnURL': reverse_lazy('spgateway_NotifyView'),
-        'NotifyURL': '',
+    os.environ.get('SPGATEWAY_MERCHANT_ID', ''): {
+        'MerchantID': os.environ.get('SPGATEWAY_MERCHANT_ID', ''),
+        'HashKey': os.environ.get('SPGATEWAY_HASHKEY', ''),
+        'HashIV': os.environ.get('SPGATEWAY_HASHIV', ''),
     }
 }
-SPGATEWAY_MERCHANTID = 'MS16247804'
+SPGATEWAY_MERCHANTID = os.environ.get('SPGATEWAY_MERCHANT_ID', '')
 SPGATEWAY_ORDERMODEL = 'estore.Order'
 
 # Activate Django-Heroku.
