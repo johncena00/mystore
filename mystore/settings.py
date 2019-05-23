@@ -148,7 +148,7 @@ SPGATEWAY_ORDERMODEL = 'estore.Order'
 # Activate Django-Heroku.
 django_heroku.settings(locals())
 
-if DEBUG:
-    INSTALLED_APPS += ('naomi',)
-    EMAIL_BACKEND = 'naomi.mail.backends.naomi.NaomiBackend'
-    EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'mail')
+# if DEBUG:
+#     INSTALLED_APPS += ('naomi',)
+#     EMAIL_BACKEND = 'naomi.mail.backends.naomi.NaomiBackend'
+#     EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'mail')
