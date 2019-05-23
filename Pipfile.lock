@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0f0ad0126a10f402d9431bd6731169da14604bbcdd4cd64d1c3ebfa843bab32f"
+            "sha256": "3b65a51115a5e63fff8a3fbd7fef53ed776efe6881f58e4989bbd704d1af9384"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -60,6 +60,14 @@
             ],
             "index": "pypi",
             "version": "==0.3.1"
+        },
+        "django-spgateway": {
+            "hashes": [
+                "sha256:505bcad8bf01bb35b445e7d6a9bfb6cc979025cd6850967dc26d0b15d1ad2556",
+                "sha256:6aa73fefeca85a283ef909be6c2cb169809fa01b3437afa2a5e0b319b5b1f9fe"
+            ],
+            "index": "pypi",
+            "version": "==0.4.0"
         },
         "gunicorn": {
             "hashes": [
@@ -136,6 +144,13 @@
             ],
             "index": "pypi",
             "version": "==2.7.7"
+        },
+        "pycrypto": {
+            "hashes": [
+                "sha256:3c9589caec5664697d991cef700f8965e7caa5dbeda4de8dd63453e00265a998",
+                "sha256:f2ce1e989b272cfcb677616763e0a2e7ec659effa67a88aa92b3a65528f60a3c"
+            ],
+            "version": "==2.6.1"
         },
         "pytz": {
             "hashes": [

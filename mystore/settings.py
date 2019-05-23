@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 import os
 import django_heroku
 
+from django.urls import reverse_lazy
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -33,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'estore',
+    'spgateway',
     'bootstrap4',
     'fontawesome',
     'django.contrib.admin',
@@ -45,6 +48,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'spgateway.middleware.SpgatewaySameSiteCookieMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -130,6 +134,18 @@ LOGIN_URL = '/login/'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+SPGATEWAY_PROFILE = {
+    'MS16247804': {
+        'MerchantID': 'MS16247804',
+        'HashKey': 'NbHvvkO1OnG7a8zQA2pbFOtxbbTWSm39',
+        'HashIV': 'OTgMeoe1DrIpnncU',
+        'ReturnURL': reverse_lazy('spgateway_NotifyView'),
+        'NotifyURL': '',
+    }
+}
+SPGATEWAY_MERCHANTID = 'MS16247804'
+SPGATEWAY_ORDERMODEL = 'estore.Order'
 
 # Activate Django-Heroku.
 django_heroku.settings(locals())

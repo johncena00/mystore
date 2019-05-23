@@ -16,6 +16,7 @@ gunicorn = "*"
 django-heroku = "*"
 django-fontawesome = "*"
 django-fsm = "*"
+django-spgateway = "*"
 
 [requires]
 python_version = "3.7"
