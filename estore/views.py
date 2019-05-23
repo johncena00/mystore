@@ -6,7 +6,7 @@ from django.shortcuts import get_object_or_404, redirect
 from django.urls import reverse
 from django.views import generic
 
-from .forms import OrderInfoForm
+from .forms import OrderInfoForm, EstoreUserCreationForm
 from .models import Cart_Items, Order, Product
 
 from django_fsm import TransitionNotAllowed
@@ -237,6 +237,14 @@ class UserList(PermissionRequiredMixin, generic.ListView):
     permission_required = 'auth.change_user'
     model = User
     template_name = 'estore/dashboard_user_list.html'
+
+class UserCreate(generic.CreateView):
+    model = User
+    form_class = EstoreUserCreationForm
+
+    def get_success_url(self):
+        messages.success(self.request, '帳戶已創立')
+        return reverse('login')
 
 class UserAddToStaff(PermissionRequiredMixin, generic.UpdateView):
     permission_required = 'auth.change_user'
