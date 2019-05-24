@@ -80,6 +80,17 @@ class Order(SpgatewayOrderMixin, models.Model):
             messages.success(request, status_msg)
         else:
             messages.error(request, '{}: {}'.format(status, status_msg))
+    
+    def spgateway_customer(self, request, trade_info):
+        status = trade_info['Status']
+        status_msg = trade_info['Message']
+
+        if status == 'SUCCESS':
+            self.payment_method = trade_info['Result']['PaymentType']
+            self.save()
+            messages.success(request, status_msg)
+        else:
+            messages.error(request, '{}: {}'.format(status, status_msg))
 
     def get_absolute_url(self):
         return reverse('order_detail', kwargs={'token': self.token})

@@ -141,6 +141,7 @@ SPGATEWAY_PROFILE = {
         'MerchantID': os.environ.get('SPGATEWAY_MERCHANT_ID', ''),
         'HashKey': os.environ.get('SPGATEWAY_HASHKEY', ''),
         'HashIV': os.environ.get('SPGATEWAY_HASHIV', ''),
+        'DEBUG': True,
     }
 }
 SPGATEWAY_MERCHANTID = os.environ.get('SPGATEWAY_MERCHANT_ID', '')
