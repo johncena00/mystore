@@ -17,6 +17,7 @@ django-heroku = "*"
 django-fontawesome = "*"
 django-fsm = "*"
 django-spgateway = "*"
+django-anymail = {extras = ["mailgun"],version = "*"}
 
 [requires]
 python_version = "3.7"
