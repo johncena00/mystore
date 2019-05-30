@@ -119,7 +119,7 @@ class OrderDetailMixin(object):
             kwargs['credit_form'] = self.object.generate_credit_form(request=self.request)
         if 'vacc_form' not in kwargs:
             kwargs['vacc_form'] = self.object.generate_vacc_form(request=self.request)
-
+    
         if self.object.payment_method == 'VACC':
             kwargs['response_info'] = self.object.spgatewaycustomerresponseinfo_set.filter(MerchantOrderNo=self.object.SpgatewaySlug).first()
             kwargs['response_vacc_info'] = kwargs['response_info'].spgatewaycustomerresponsevacc_set.first()

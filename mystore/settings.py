@@ -137,14 +137,16 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SPGATEWAY_PROFILE = {
-    os.environ.get('SPGATEWAY_MERCHANT_ID', ''): {
-        'MerchantID': os.environ.get('SPGATEWAY_MERCHANT_ID', ''),
-        'HashKey': os.environ.get('SPGATEWAY_HASHKEY', ''),
-        'HashIV': os.environ.get('SPGATEWAY_HASHIV', ''),
+    os.environ.get('SPGATEWAY_MERCHANT_ID', 'MS16247804'): {
+        'MerchantID': os.environ.get('SPGATEWAY_MERCHANT_ID', 'MS16247804'),
+        'HashKey': os.environ.get('SPGATEWAY_HASHKEY', 'NbHvvkO1OnG7a8zQA2pbFOtxbbTWSm39'),
+        'HashIV': os.environ.get('SPGATEWAY_HASHIV', 'OTgMeoe1DrIpnncU'),
         'DEBUG': True,
+        'ReturnURL': reverse_lazy('spgateway_NotifyView'),
+        'NotifyURL': '',
     }
 }
-SPGATEWAY_MERCHANTID = os.environ.get('SPGATEWAY_MERCHANT_ID', '')
+SPGATEWAY_MERCHANTID = os.environ.get('SPGATEWAY_MERCHANT_ID', 'MS16247804')
 SPGATEWAY_ORDERMODEL = 'estore.Order'
 
 # Activate Django-Heroku.
@@ -163,3 +165,8 @@ elif DEBUG:
     EMAIL_FILE_PATH = os.path.join(BASE_DIR, 'mail')
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
+if os.environ.get('CLOUDAMQP_URL'):
+    CELERY_BROKER_URL = os.environ.get('CLOUDAMQP_URL')
+    CELERY_ACCEPT_CONTENT = ['json']
+    CELERY_TASK_SERIALIZER = 'json'
